@@ -3,6 +3,7 @@ import { Input } from '@/components/ui/input';
 import { SelectBudgetOptions, SelectTravelesList } from '@/constants/options';
 import React, { useEffect, useState } from 'react'
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete'
+import { toast } from 'sonner';
 
 const CreateTrip = () => {
     const [place, setPlace] = useState();
@@ -19,7 +20,13 @@ const CreateTrip = () => {
     },[formData])
 
     const OnGenerateTrip = () => {
-        if(formData?.numOfDays > 10) {
+        if(formData?.numOfDays > 10 && !formData?.location || !formData?.budget || !formData?.traveler) {
+            toast.error('Please fill all details', {
+                style: {
+                    backgroundColor: '#FF4136',  
+                    color: '#1A1A1A'            
+                }
+            });
             return;
         }
         console.log(formData);
