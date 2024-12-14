@@ -1,8 +1,3 @@
-// Import relevant icons
-import { UserIcon, UsersIcon } from 'lucide-react'
-import { FaUsers, FaUserFriends, FaMoneyBillWave, FaGem, FaCrown } from 'react-icons/fa'
-import { MdTrendingFlat } from 'react-icons/md'
-
 export const SelectTravelesList = [
     {
         id: 1,
@@ -55,4 +50,118 @@ export const SelectBudgetOptions = [
     },
 ]
 
-export const AI_PROMPT = 'Generate Travel plan for Location: {location}'
+export const AI_PROMPT = `Generate a detailed travel plan for a location: {location}, for {totalDays} days for {traveler}, with a {budget} budget. 
+Provide the following:
+
+1. A list of hotels with:
+    - HotelName: Name of the hotel
+    - Address: Address of the hotel
+    - Price: Price per night
+    - ImageUrl: URL to hotel image
+    - GeoCoordinates: {latitude: lat, longitude: long}
+    - Rating: Hotel rating
+    - Description: A brief description of the hotel
+
+2. An itinerary for each day (totalDays days). Each day should include:
+    - Day: The specific day (e.g., Day 1, Day 2)
+    - Attractions for each day (at least 3 attractions per day):
+        - PlaceName: Name of the place
+        - PlaceDetails: Brief details about the place
+        - ImageUrl: URL to place image
+        - GeoCoordinates: {latitude: lat, longitude: long}
+        - TicketPricing: Price to enter (if applicable)
+        - Rating: Place rating
+        - BestTimeToVisit: Best time to visit the place
+        - WeatherConditions: Weather conditions for that day
+        - TimeToTravel: Estimated travel time to the place from the hotel(s)
+
+The response should follow this exact JSON format:
+
+{
+    "hotels": [
+        {
+            "hotelName": "Hotel Name",
+            "address": "Hotel Address",
+            "price": "Price per night",
+            "imageUrl": "URL to hotel image",
+            "geoCoordinates": { "latitude": "lat", "longitude": "long" },
+            "rating": "Hotel rating",
+            "description": "Brief description of the hotel"
+        },
+        ...
+    ],
+    "itinerary": {
+        "day1": [
+            {
+                "placeName": "Place Name",
+                "placeDetails": "Details about the place",
+                "imageUrl": "URL to place image",
+                "geoCoordinates": { "latitude": "lat", "longitude": "long" },
+                "ticketPricing": "Ticket pricing",
+                "rating": "Place rating",
+                "bestTimeToVisit": "Best time to visit",
+                "weatherConditions": "Weather conditions for that day",
+                "timeToTravel": "Time required to reach the location from the hotel"
+            },
+            {
+                "placeName": "Place Name 2",
+                "placeDetails": "Details about the second place",
+                "imageUrl": "URL to place 2 image",
+                "geoCoordinates": { "latitude": "lat", "longitude": "long" },
+                "ticketPricing": "Ticket pricing",
+                "rating": "Place rating",
+                "bestTimeToVisit": "Best time to visit",
+                "weatherConditions": "Weather conditions for that day",
+                "timeToTravel": "Time required to reach the location from the hotel"
+            },
+            {
+                "placeName": "Place Name 3",
+                "placeDetails": "Details about the third place",
+                "imageUrl": "URL to place 3 image",
+                "geoCoordinates": { "latitude": "lat", "longitude": "long" },
+                "ticketPricing": "Ticket pricing",
+                "rating": "Place rating",
+                "bestTimeToVisit": "Best time to visit",
+                "weatherConditions": "Weather conditions for that day",
+                "timeToTravel": "Time required to reach the location from the hotel"
+            }
+        ],
+        "day2": [
+            {
+                "placeName": "Place Name 4",
+                "placeDetails": "Details about the fourth place",
+                "imageUrl": "URL to place 4 image",
+                "geoCoordinates": { "latitude": "lat", "longitude": "long" },
+                "ticketPricing": "Ticket pricing",
+                "rating": "Place rating",
+                "bestTimeToVisit": "Best time to visit",
+                "weatherConditions": "Weather conditions for that day",
+                "timeToTravel": "Time required to reach the location from the hotel"
+            },
+            {
+                "placeName": "Place Name 5",
+                "placeDetails": "Details about the fifth place",
+                "imageUrl": "URL to place 5 image",
+                "geoCoordinates": { "latitude": "lat", "longitude": "long" },
+                "ticketPricing": "Ticket pricing",
+                "rating": "Place rating",
+                "bestTimeToVisit": "Best time to visit",
+                "weatherConditions": "Weather conditions for that day",
+                "timeToTravel": "Time required to reach the location from the hotel"
+            },
+            {
+                "placeName": "Place Name 6",
+                "placeDetails": "Details about the sixth place",
+                "imageUrl": "URL to place 6 image",
+                "geoCoordinates": { "latitude": "lat", "longitude": "long" },
+                "ticketPricing": "Ticket pricing",
+                "rating": "Place rating",
+                "bestTimeToVisit": "Best time to visit",
+                "weatherConditions": "Weather conditions for that day",
+                "timeToTravel": "Time required to reach the location from the hotel"
+            }
+        ]
+    }
+}
+
+Make sure that the itinerary includes exactly {totalDays} days of activities, and each day has at least 3 attractions listed. Make sure to only include the JSON output (no additional text).`

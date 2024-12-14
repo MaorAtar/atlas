@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { SelectBudgetOptions, SelectTravelesList } from '@/constants/options';
+import { AI_PROMPT, SelectBudgetOptions, SelectTravelesList } from '@/constants/options';
+import { generateTravelPlan } from '@/service/AIModel';
 import React, { useEffect, useState } from 'react'
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete'
 import { toast } from 'sonner';
@@ -19,7 +20,7 @@ const CreateTrip = () => {
         console.log(formData);
     },[formData])
 
-    const OnGenerateTrip = () => {
+    const OnGenerateTrip = async () => {
         if(formData?.numOfDays > 10 && !formData?.location || !formData?.budget || !formData?.traveler) {
             toast.error('Please fill all details', {
                 style: {
@@ -29,7 +30,18 @@ const CreateTrip = () => {
             });
             return;
         }
-        console.log(formData);
+        const FINAL_PROMPT=AI_PROMPT
+        .replace('{location}', formData?.location?.label)
+        .replace('{totalDays}', formData?.numOfDays)
+        .replace('{traveler}', formData?.traveler)
+        .replace('{budget}', formData?.budget)
+        .replace('{totalDays}', formData?.numOfDays)
+
+        console.log(FINAL_PROMPT);
+
+        const result = await generateTravelPlan(FINAL_PROMPT); // Pass FINAL_PROMPT to the AI model
+
+        console.log(result);
     }
 
     return (
