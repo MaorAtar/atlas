@@ -7,6 +7,7 @@ import CreateTrip from './create-trip'
 import Header from './components/custom/Header'
 import { Toaster } from './components/ui/sonner'
 import { ClerkProvider, RedirectToSignIn, SignedIn, SignedOut, SignIn, SignUp } from '@clerk/clerk-react'
+import ViewTrip from './view-trip/[tripId]'
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
         </SignedOut>
       </>
     ),
+  },
+  {
+    path:'view-trip/:tripId',
+    element: <ViewTrip/>
   },
   {
     path: '/sign-in',
