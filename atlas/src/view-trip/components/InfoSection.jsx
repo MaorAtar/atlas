@@ -24,8 +24,8 @@ function InfoSection({trip}) {
                 </div>
             </div>
         <Button>
-            <Send></Send>
             Share
+            <Send></Send>
         </Button>
         </div>
         
