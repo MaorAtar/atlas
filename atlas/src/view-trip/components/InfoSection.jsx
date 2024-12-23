@@ -42,6 +42,7 @@ function InfoSection({ trip }) {
         <div>
           <h2 className="text-4xl font-extrabold text-gray-800">
             {trip?.userSelection?.location?.label}
+            
           </h2>
           <div className="mt-3 flex gap-4">
             <span className="bg-gray-100 px-4 py-2 rounded-full text-gray-600">

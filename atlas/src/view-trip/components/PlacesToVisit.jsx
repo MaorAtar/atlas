@@ -18,6 +18,7 @@ function PlacesToVisit({ trip }) {
                 </div>
                 {/* Gradient Line */}
                 <div className="flex-1 h-0.5 bg-gradient-to-r from-teal-500 to-teal-300"></div>
+                
             </div>
 
 
