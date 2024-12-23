@@ -33,7 +33,7 @@ function PlaceCardItem({ place }) {
           />
           {/* Best Time Badge */}
           <div className="absolute top-3 right-3 bg-teal-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow">
-            Best Time: {place.bestTimeToVisit}
+            {place.bestTimeToVisit}
           </div>
         </div>
 
@@ -45,7 +45,7 @@ function PlaceCardItem({ place }) {
           <p className="text-sm text-gray-500">{place.placeDetails}</p>
           <div className="flex justify-between items-center">
             <p className="text-sm text-teal-700 font-medium">🕘 {place.timeToTravel}</p>
-            <p className="text-sm text-gray-500">📍 {place.bestTimeToVisit}</p>
+            
           </div>
         </div>
       </div>

@@ -66,7 +66,7 @@ Provide the following:
 
 2. An itinerary as an array for each day (totalDays days). Each day should include:
    - Day: The specific day number (e.g., Day 1, Day 2)
-   - Attractions: At least 4 attractions per day, with the following details for each attraction:
+   - Attractions: At least 3 attractions per day, with the following details for each attraction:
        - PlaceName: Name of the place
        - PlaceDetails: Brief details about the place
        - ImageUrl: URL to place image

@@ -14,6 +14,7 @@ function ViewTrip() {
   const [trip,setTrip] = useState([]);
   useEffect(()=>{
     tripId && GetTripData();
+    window.scrollTo(0,0);
   },[tripId])
 
   const GetTripData = async () => {
