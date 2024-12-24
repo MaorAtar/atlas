@@ -105,83 +105,127 @@ const CreateTrip = () => {
     
 
     return (
-        <div className='sm:px-10 md:px-32 lg:px-56 xl:px-10 px-5 mt-10'>
-            <h2 className='font-bold text-3xl flex items-center'>
-                Tell us your travel preferences
-                <img src="/create-trip-icons/travel.png" alt="travel" className='w-12 h-12 ml-3' />
-            </h2>
-            <p className='mt-3 text-gray-500 text-xl'>
-                Provide some basic information, and Atlas will generate a customized itinerary based on your preferences
-            </p>
+        <div className="flex items-center justify-center min-h-screen mb-10">
+            <div className="sm:px-10 md:px-32 lg:px-56 xl:px-10 px-5 mt-10 bg-white shadow-lg rounded-lg max-w-4xl w-full">
+            <div className="relative">
+                    <img 
+                        className="rounded-xl w-full h-64 object-cover" 
+                        src="/create-trip-pictures/create-trip-bg.jpg" 
+                        alt="create-trip" 
+                    />
+                    <h1 className="absolute bottom-5 left-5 bg-black bg-opacity-50 text-white text-xl font-semibold px-4 py-2 rounded-md">
+                        Plan Your Dream Trip
+                    </h1>
+                </div>
+                <h1 className="text-2xl font-bold text-center mt-6">Tell us your travel preferences</h1>
+                <p className="mt-4 text-lg text-gray-600 text-center max-w-2xl mx-auto">
+                    Provide some basic information, and Atlas will generate a customized itinerary based on your preferences.
+                </p>
             <div>
-                <div className='mt-20 flex flex-col'>
-                    <h2 className='text-xl my-3 font-medium'>Destination of choice:</h2>
-                    <GooglePlacesAutocomplete
+                    <div className="mt-5 flex flex-col">
+                        <h2 className="text-xl my-3 font-medium">Destination of choice:</h2>
+                        <GooglePlacesAutocomplete
                         apiKey={import.meta.env.VITE_GOOGLE_PLACE_API_KEY}
                         selectProps={{
                             place,
-                            onChange: (v) => { setPlace(v); handleInputChange('location', v); }
+                            onChange: (v) => {
+                            setPlace(v);
+                            handleInputChange('location', v);
+                            },
+                            styles: {
+                            control: (base) => ({
+                                ...base,
+                                width: '400px',
+                                minWidth: '400px',
+                            }),
+                            menu: (base) => ({
+                                ...base,
+                                width: '400px',
+                            }),
+                            },
                         }}
-                    />
-
-                    <div>
-                        <h2 className='text-xl my-3 font-medium'>Number of nights:</h2>
-                        <Input placeholder={'Ex.3'} type="number"
-                            onChange={(e) => handleInputChange('numOfDays', e.target.value)}
                         />
+                        <div>
+                            <h2 className="text-xl my-3 font-medium">Number of nights:</h2>
+                            <Input
+                                placeholder="Ex.3"
+                                type="number"
+                                onChange={(e) => handleInputChange('numOfDays', e.target.value)}
+                                style={{ width: '400px' }}
+                            />
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div className='mb-10'>
-                <h2 className='text-xl my-3 font-medium'>Trip Budget:</h2>
-                <div className='grid grid-cols-3 gap-5 mt-5'>
-                    {SelectBudgetOptions.map((item, index) => (
-                        <div key={index}
-                            onClick={() => handleInputChange('budget', item.title)}
-                            className={`p-4 border cursor-pointer rounded-lg hover:shadow-lg
-                    ${formData?.budget === item.title && 'shadow-lg border-black'}
-                    `}>
-                            <h2 className='text-4xl'>{item.icon}</h2>
-                            <h2 className='font-bold text-lg'>{item.title}</h2>
-                            <h2 className='text-sm text-gray-500'>{item.desc}</h2>
-                        </div>
-                    ))}
+                <div className="mb-10">
+                    <h2 className="text-xl my-3 font-medium">Trip Budget:</h2>
+                    <div className="grid grid-cols-3 gap-5 mt-5">
+                        {SelectBudgetOptions.map((item, index) => (
+                            <div
+                                key={index}
+                                onClick={() => handleInputChange('budget', item.title)}
+                                className={`p-4 border cursor-pointer rounded-lg hover:shadow-lg
+                        ${formData?.budget === item.title && 'shadow-lg border-black'}`}
+                            >
+                                <h2 className="text-4xl">{item.icon}</h2>
+                                <h2 className="font-bold text-lg">{item.title}</h2>
+                                <h2 className="text-sm text-gray-500">{item.desc}</h2>
+                            </div>
+                        ))}
+                    </div>
                 </div>
-            </div>
-
-            <div className='mb-10'>
-                <h2 className='text-xl my-3 font-medium'>Trip Structure:</h2>
-                <div className='grid grid-cols-2 gap-5 mt-5'>
-                    {SelectTravelesList.map((item, index) => (
-                        <div key={index}
-                            onClick={() => handleInputChange('traveler', item.people)}
-                            className={`p-4 border cursor-pointer rounded-lg hover:shadow-lg
-                        ${formData?.traveler === item.people && 'shadow-lg border-black'}
-                        `}>
-                            <h2 className='text-4xl'>{item.icon}</h2>
-                            <h2 className='font-bold text-lg'>{item.title}</h2>
-                            <h2 className='text-sm text-gray-500'>{item.desc}</h2>
-                        </div>
-                    ))}
+    
+                <div className="mb-10">
+                    <h2 className="text-xl my-3 font-medium">Trip Structure:</h2>
+                    <div className="grid grid-cols-2 gap-5 mt-5">
+                        {SelectTravelesList.map((item, index) => (
+                            <div
+                                key={index}
+                                onClick={() => handleInputChange('traveler', item.people)}
+                                className={`p-4 border cursor-pointer rounded-lg hover:shadow-lg
+                            ${formData?.traveler === item.people && 'shadow-lg border-black'}`}
+                            >
+                                <h2 className="text-4xl">{item.icon}</h2>
+                                <h2 className="font-bold text-lg">{item.title}</h2>
+                                <h2 className="text-sm text-gray-500">{item.desc}</h2>
+                            </div>
+                        ))}
+                    </div>
                 </div>
-            </div>
-            <div className='my-10 justify-end flex'>
-                <Button onClick={OnGenerateTrip}>
-                    {loading ? (
-                        <div className="flex items-center">
-                            <svg className="animate-spin h-5 w-5 mr-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
-                            </svg>
-                            Loading...
-                        </div>
-                    ) : (
-                        'Generate Trip'
-                    )}
-                </Button>
+                <div className="my-10 justify-end flex">
+                    <Button onClick={OnGenerateTrip}>
+                        {loading ? (
+                            <div className="flex items-center">
+                                <svg
+                                    className="animate-spin h-5 w-5 mr-2 text-white"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <circle
+                                        className="opacity-25"
+                                        cx="12"
+                                        cy="12"
+                                        r="10"
+                                        stroke="currentColor"
+                                        strokeWidth="4"
+                                    ></circle>
+                                    <path
+                                        className="opacity-75"
+                                        fill="currentColor"
+                                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                                    ></path>
+                                </svg>
+                                Loading...
+                            </div>
+                        ) : (
+                            'Generate Trip'
+                        )}
+                    </Button>
+                </div>
             </div>
         </div>
     );
+    
 };
 
 export default CreateTrip;

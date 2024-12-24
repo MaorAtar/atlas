@@ -48,8 +48,7 @@ function Header() {
           <a href="/create-trip">
             <Button
               variant="solid"
-              className="rounded-full bg-gradient-to-r from-teal-500 to-green-400 hover:from-teal-600 hover:to-green-500 text-white shadow-md px-4 py-1 h-8 text-sm flex items-center gap-2 transition-transform transform hover:scale-105"
-            >
+              className="rounded-full bg-teal-600 hover:bg-teal-700 text-white shadow-md px-4 py-1 h-8 text-sm flex items-center gap-2 transition-transform transform hover:scale-105"            >
               <Plus className="w-4 h-4" />
               Create Trip
             </Button>
