@@ -39,7 +39,7 @@ function PlacesToVisit({ trip }) {
                     </div>
                   ) || uniqueWeatherConditions && (
                     <div className="text-lg font-semibold text-white flex items-center gap-2">
-                      Weather is: <img src="/view-trip-icons/Sun.png" alt="Weather" className="w-12 h-12" />
+                      <img src="/view-trip-icons/Sun.png" alt="Weather" className="w-12 h-12" />
                     </div>
                   )}
                 </div>
