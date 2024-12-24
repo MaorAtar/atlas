@@ -17,7 +17,7 @@ const HowItWorks = () => {
               </p>
             </div>
 
-            <div className="flex-shrink-0 w-96 h-96">
+            <div className="flex-shrink-0 w-[500px] h-[500px]">
               <img
                 src='/homepage-pictures/step1.png'
                 alt='step1'
@@ -35,7 +35,7 @@ const HowItWorks = () => {
               </p>
             </div>
 
-            <div className="flex-shrink-0 w-96 h-96">
+            <div className="flex-shrink-0 w-[500px] h-[500px]">
               <img
                 src='/homepage-pictures/step2.png'
                 alt='step2'
@@ -53,7 +53,7 @@ const HowItWorks = () => {
               </p>
             </div>
 
-            <div className="flex-shrink-0 w-96 h-96">
+            <div className="flex-shrink-0 w-[500px] h-[500px]">
               <img
                 src='/homepage-pictures/step3.png'
                 alt='step3'

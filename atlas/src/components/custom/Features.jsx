@@ -3,17 +3,17 @@ import React from 'react';
 function Features() {
   const features = [
     {
-      icon: '🌍',
+      icon: '/homepage-icons/globe.png',
       title: 'Global Destinations',
       description: 'Explore curated trips to destinations all over the world.',
     },
     {
-      icon: '⚡',
+      icon: '/homepage-icons/voltage.png',
       title: 'AI-Powered Itineraries',
       description: 'Quickly generate travel plans tailored to your preferences.',
     },
     {
-      icon: '💰',
+      icon: '/homepage-icons/money.png',
       title: 'Budget-Friendly',
       description: 'Stay within your budget while experiencing the best.',
     },
@@ -25,7 +25,13 @@ function Features() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10 px-6 md:px-20">
         {features.map((feature, index) => (
           <div key={index} className="text-center">
-            <div className="text-4xl mb-4">{feature.icon}</div>
+            <div className="mb-4">
+              <img
+                src={feature.icon}
+                alt={feature.title}
+                className="w-32 h-32 mx-auto"
+              />
+            </div>
             <h3 className="text-xl font-semibold">{feature.title}</h3>
             <p className="mt-3 text-gray-500">{feature.description}</p>
           </div>

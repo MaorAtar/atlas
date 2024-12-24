@@ -9,6 +9,8 @@ import { doc, setDoc } from "firebase/firestore";
 import { db } from "@/service/firebaseConfig";
 import { useUser } from '@clerk/clerk-react';
 import { useNavigate } from 'react-router-dom';
+import CustomLoader from '@/components/custom/CustomLoader';
+import { Loader } from 'lucide-react';
 
 const CreateTrip = () => {
     const [place, setPlace] = useState();
@@ -222,6 +224,7 @@ const CreateTrip = () => {
                         )}
                     </Button>
                 </div>
+                <CustomLoader isLoading={loading}/>
             </div>
         </div>
     );
