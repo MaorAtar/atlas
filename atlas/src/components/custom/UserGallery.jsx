@@ -29,23 +29,23 @@ const UserGallery = () => {
   return (
     <div className="relative flex flex-col items-center py-10">
       <h2 className="text-4xl font-bold mb-6">Over 100 itineraries created</h2>
-      <div className="relative w-full max-w-3xl flex items-center justify-center">
+      <div className="relative w-full max-w-5xl flex items-center justify-center">
         {/* Left Arrow */}
         <button
           onClick={handlePrev}
-          className="absolute left-4 p-4 bg-white rounded-full text-3xl hover:bg-gray-100 z-10"
+          className="absolute left-4 p-4 bg-white rounded-full text-4xl hover:bg-gray-100 z-10"
         >
           <FaArrowCircleLeft />
         </button>
 
         {/* User Cards */}
-        <div className="flex justify-center items-center space-x-4">
+        <div className="flex justify-center items-center space-x-6">
           {/* Previous User Card */}
-          <div className="flex flex-col items-center text-center shadow-lg rounded-lg relative w-full max-w-xs opacity-50">
+          <div className="flex flex-col items-center text-center shadow-lg rounded-lg relative w-full max-w-md opacity-50">
             <img
               src={previousUser.image}
               alt={previousUser.name}
-              className="w-full h-80 object-cover rounded-lg"
+              className="w-full h-[350px] object-cover rounded-lg"
             />
             <div className="absolute p-4 bottom-4 left-4 text-white bg-black bg-opacity-50 rounded-lg">
               <h2 className="font-semibold">{previousUser.name} Visited</h2>
@@ -54,24 +54,24 @@ const UserGallery = () => {
           </div>
 
           {/* Current User Card */}
-          <div className="flex flex-col items-center text-center shadow-lg rounded-lg relative w-full max-w-xs">
+          <div className="flex flex-col items-center text-center shadow-lg rounded-lg relative w-full max-w-md">
             <img
               src={currentUser.image}
               alt={currentUser.name}
-              className="w-full h-80 object-cover rounded-lg"
+              className="w-full h-[400px] object-cover rounded-lg"
             />
-            <div className="absolute p-4 bottom-4 left-4 text-white bg-black bg-opacity-50 rounded-lg">
-              <h3 className="text-xl font-semibold">{currentUser.name} Visited</h3>
+            <div className="absolute p-6 bottom-6 left-6 text-white bg-black bg-opacity-50 rounded-lg">
+              <h3 className="text-2xl font-semibold">{currentUser.name} Visited</h3>
               <p className="text-lg flex items-center"><CiLocationOn className="mr-2" /> {currentUser.destination}</p>
             </div>
           </div>
 
           {/* Next User Card */}
-          <div className="flex flex-col items-center text-center shadow-lg rounded-lg relative w-full max-w-xs opacity-50">
+          <div className="flex flex-col items-center text-center shadow-lg rounded-lg relative w-full max-w-md opacity-50">
             <img
               src={nextUser.image}
               alt={nextUser.name}
-              className="w-full h-80 object-cover rounded-lg"
+              className="w-full h-[350px] object-cover rounded-lg"
             />
             <div className="absolute p-4 bottom-4 left-4 text-white bg-black bg-opacity-50 rounded-lg">
               <h2 className="font-semibold">{nextUser.name} Visited</h2>
@@ -83,7 +83,7 @@ const UserGallery = () => {
         {/* Right Arrow */}
         <button
           onClick={handleNext}
-          className="absolute right-4 p-4 bg-white rounded-full text-3xl hover:bg-gray-100"
+          className="absolute right-4 p-4 bg-white rounded-full text-4xl hover:bg-gray-100"
         >
           <FaArrowCircleRight />
         </button>
