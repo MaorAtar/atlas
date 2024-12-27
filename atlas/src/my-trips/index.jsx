@@ -20,7 +20,6 @@ function MyTrips() {
   }, [user]);
 
   useEffect(() => {
-    // Filter trips based on the search query
     const lowerCaseQuery = searchQuery.toLowerCase();
     const filtered = userTrips.filter((trip) =>
       trip?.userSelection?.location?.label?.toLowerCase().includes(lowerCaseQuery)
@@ -77,7 +76,7 @@ function MyTrips() {
       </div>
 
       {/* Trips Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mb-5">
         {filteredTrips.length > 0 ? (
           filteredTrips.map((trip, index) => (
             <UserTripCardItem trip={trip} key={index} />

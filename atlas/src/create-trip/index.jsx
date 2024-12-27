@@ -10,45 +10,79 @@ import { db } from "@/service/firebaseConfig";
 import { useUser } from '@clerk/clerk-react';
 import { useNavigate } from 'react-router-dom';
 import CustomLoader from '@/components/custom/CustomLoader';
-import { Loader } from 'lucide-react';
 
 const CreateTrip = () => {
     const [place, setPlace] = useState();
-    const [formData, setFormData] = useState([]);
+    const [formData, setFormData] = useState({
+        numOfDays: "",
+        budget: "",
+        traveler: "",
+        location: null,
+    });
     const { user } = useUser();
     const router = useNavigate();
     const [loading, setLoading] = useState(false);
 
     const handleInputChange = (name, value) => {
-        setFormData({
-            ...formData,
-            [name]: value
-        });
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
     };
 
-    useEffect(() => {
-        console.log(formData);
-    }, [formData]);
-
-    const OnGenerateTrip = async () => {
-        if (formData?.numOfDays > 10 && !formData?.location || !formData?.budget || !formData?.traveler) {
-            toast.error('Please fill all details', {
+    const validateInputs = () => {
+        if (!formData.location) {
+            toast.error('Destination is required.', {
                 style: {
                     backgroundColor: '#FF4136',
                     color: '#1A1A1A'
                 }
             });
+            return false;
+        }
+        if (!formData.numOfDays || formData.numOfDays <= 0 || formData.numOfDays > 10) {
+            toast.error('Please enter a valid number of nights (1-10).', {
+                style: {
+                    backgroundColor: '#FF4136',
+                    color: '#1A1A1A'
+                }
+            });
+            return false;
+        }
+        if (!formData.budget) {
+            toast.error('Please select a budget.', {
+                style: {
+                    backgroundColor: '#FF4136',
+                    color: '#1A1A1A'
+                }
+            });
+            return false;
+        }
+        if (!formData.traveler) {
+            toast.error('Please select the number of travelers.', {
+                style: {
+                    backgroundColor: '#FF4136',
+                    color: '#1A1A1A'
+                }
+            });
+            return false;
+        }
+        return true;
+    };
+
+    const OnGenerateTrip = async () => {
+        if (!validateInputs()) {
             return;
         }
+
         setLoading(true);
+
         const FINAL_PROMPT = AI_PROMPT
             .replace('{location}', formData?.location?.label)
             .replace('{totalDays}', formData?.numOfDays)
             .replace('{traveler}', formData?.traveler)
             .replace('{budget}', formData?.budget)
             .replace('{totalDays}', formData?.numOfDays);
-
-        console.log(FINAL_PROMPT);
 
         try {
             const result = await generateTravelPlan(FINAL_PROMPT);
@@ -65,17 +99,15 @@ const CreateTrip = () => {
     const saveAiTrip = async (TripData) => {
         try {
             setLoading(true);
-    
-            // Generate a unique document ID
+
             const docId = Date.now().toString();
-    
-            // Insert the trip data into Firestore under the "AITrips" collection
+
             await setDoc(doc(db, "AITrips", docId), {
                 userSelection: formData,
                 tripData: TripData,
-                userEmail: user?.emailAddresses[0]?.emailAddress || "Unknown", // Use user's email address
+                userEmail: user?.emailAddresses[0]?.emailAddress || "Unknown",
                 id: docId,
-                createdAt: new Date().toISOString(), // Add timestamp for reference
+                createdAt: new Date().toISOString(),
             });
     
             toast.success("Trip saved successfully!", {
@@ -84,11 +116,7 @@ const CreateTrip = () => {
                     color: "#fff",
                 },
             });
-    
-            // Log the navigation path for debugging
-            console.log('Navigating to:', `/view-trip/${docId}`);
-    
-            // Use the navigate function to redirect
+
             router(`/view-trip/${docId}`);
         } catch (error) {
             console.error("Error saving trip data:", error);
@@ -152,8 +180,11 @@ const CreateTrip = () => {
                             <Input
                                 placeholder="Ex.3"
                                 type="number"
+                                value={formData.numOfDays}
                                 onChange={(e) => handleInputChange('numOfDays', e.target.value)}
                                 style={{ width: '400px' }}
+                                min={1}
+                                max={10}
                             />
                         </div>
                     </div>
