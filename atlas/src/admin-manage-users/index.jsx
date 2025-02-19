@@ -22,7 +22,6 @@ function AdminManageUsers() {
         }
 
         const users = await response.json();
-        console.log("Users:", users);
 
         setUsers(users);
         setLoading(false);
