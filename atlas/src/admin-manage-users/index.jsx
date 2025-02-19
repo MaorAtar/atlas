@@ -91,7 +91,7 @@ function AdminManageUsers() {
   return (
     <div className="min-h-screen flex flex-col items-center p-8 bg-teal-50">
       <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-3 text-center">
-        Admin Manage Users
+        Manage Users
       </h2>
       <div className="w-16 h-1 bg-gradient-to-r from-teal-500 to-teal-300 rounded-full"></div>
       <div className="overflow-x-auto w-full max-w-4xl mt-2">
