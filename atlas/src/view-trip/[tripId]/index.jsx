@@ -11,8 +11,8 @@ import { Button } from '@/components/ui/button';
 import { Download, Send } from 'lucide-react';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
-import { FacebookMessengerShareButton, WhatsappShareButton, EmailShareButton, LinkedinIcon } from 'react-share';
-import { FacebookMessengerIcon, WhatsappIcon, EmailIcon } from 'react-share';
+import { WhatsappShareButton, EmailShareButton } from 'react-share';
+import { WhatsappIcon, EmailIcon } from 'react-share';
 
 function ViewTrip() {
   const { tripId } = useParams();

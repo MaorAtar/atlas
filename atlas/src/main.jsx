@@ -9,6 +9,9 @@ import { Toaster } from './components/ui/sonner'
 import { ClerkProvider, RedirectToSignIn, SignedIn, SignedOut, SignIn, SignUp } from '@clerk/clerk-react'
 import ViewTrip from './view-trip/[tripId]'
 import MyTrips from './my-trips'
+import AdminManageUsers from './admin-manage-users'
+import AdminDashboard from './admin-dashboard'
+import AdminAllTrips from './admin-all-trips'
 
 const router = createBrowserRouter([
   {
@@ -44,10 +47,19 @@ const router = createBrowserRouter([
     path: '/my-trips',
     element: <MyTrips />
   },
+  {
+    path: '/admin-dashboard',
+    element: <AdminDashboard />
+  },
+  {
+    path: '/admin-manage-users',
+    element: <AdminManageUsers />
+  },
+  {
+    path: '/admin-all-trips',
+    element: <AdminAllTrips />
+  },
 ]);
-
-
-
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 

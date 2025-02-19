@@ -2,6 +2,9 @@ import React from 'react';
 import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react';
 import { useUser } from '@clerk/clerk-react';
 import { Button } from '../ui/button';
+import { RiDashboard3Line } from "react-icons/ri";
+import { MdManageAccounts } from "react-icons/md";
+import { CiViewTimeline } from "react-icons/ci";
 import { Plus, LogIn } from 'lucide-react';
 import 'typeface-audiowide'; // Importing Audiowide font
 
@@ -44,11 +47,51 @@ function Header() {
         </SignedOut>
 
         <SignedIn>
+          {/* Admin Dashboard */}
+          {user?.publicMetadata?.role === "admin" && (
+            <a href="/admin-dashboard">
+              <Button
+                variant="solid"
+                className="rounded-full bg-teal-600 hover:bg-teal-700 text-white shadow-md px-4 py-1 h-8 text-sm flex items-center gap-2 transition-transform transform hover:scale-105"
+              >
+                <RiDashboard3Line className="w-4 h-4" />
+                Dashboard
+              </Button>
+            </a>
+          )}
+
+          {/* Admin Manage Users */}
+          {user?.publicMetadata?.role === "admin" && (
+            <a href="/admin-manage-users">
+              <Button
+                variant="solid"
+                className="rounded-full bg-teal-600 hover:bg-teal-700 text-white shadow-md px-4 py-1 h-8 text-sm flex items-center gap-2 transition-transform transform hover:scale-105"
+              >
+                <MdManageAccounts className="w-4 h-4" />
+                Manage Users
+              </Button>
+            </a>
+          )}
+
+          {/* Admin View All Trips */}
+          {user?.publicMetadata?.role === "admin" && (
+            <a href="/admin-all-trips">
+              <Button
+                variant="solid"
+                className="rounded-full bg-teal-600 hover:bg-teal-700 text-white shadow-md px-4 py-1 h-8 text-sm flex items-center gap-2 transition-transform transform hover:scale-105"
+              >
+                <CiViewTimeline className="w-4 h-4" />
+                All Trips
+              </Button>
+            </a>
+          )}
+
           {/* Create Trip Button */}
           <a href="/create-trip">
             <Button
               variant="solid"
-              className="rounded-full bg-teal-600 hover:bg-teal-700 text-white shadow-md px-4 py-1 h-8 text-sm flex items-center gap-2 transition-transform transform hover:scale-105"            >
+              className="rounded-full bg-teal-600 hover:bg-teal-700 text-white shadow-md px-4 py-1 h-8 text-sm flex items-center gap-2 transition-transform transform hover:scale-105"
+            >
               <Plus className="w-4 h-4" />
               Create Trip
             </Button>
