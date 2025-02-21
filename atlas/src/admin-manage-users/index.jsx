@@ -111,11 +111,11 @@ function AdminManageUsers() {
                 key={user.id}
                 className="border-b border-gray-200 hover:bg-teal-100 transition-all"
               >
-                <td className="py-4 px-6">
+                <td className="py-4 px-4">
                   <img
                     src={user.image_url || "https://via.placeholder.com/50"}
                     alt="Profile"
-                    className="w-14 h-14 rounded-full object-cover border-2 border-teal-400"
+                    className="w-14 h-14 rounded-full object-cover"
                   />
                 </td>
                 <td className="py-4 px-6 text-gray-700">{user.first_name}</td>

@@ -105,5 +105,38 @@ app.delete("/api/deleteUser/:id", async (req, res) => {
     }
 });
 
-  
+  // Count active users (who logged in in the last 30 days)
+app.get("/api/getActiveUsers", async (req, res) => {
+  try {
+    const clerkSecretKey = process.env.VITE_CLERK_SECRET_KEY;
+
+    if (!clerkSecretKey) {
+      return res.status(500).json({ error: "Clerk Secret Key is missing" });
+    }
+
+    const response = await fetch("https://api.clerk.dev/v1/users", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${clerkSecretKey}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      return res.status(response.status).json({ error: `Error fetching users: ${response.statusText}` });
+    }
+
+    const users = await response.json();
+    const activeUsersCount = users.filter(user => {
+      const lastSignIn = new Date(user.last_sign_in_at);
+      return lastSignIn >= new Date(Date.now() - 30 * 24 * 60 * 60 * 1000); // Check if signed in within the last 30 days
+    }).length;
+
+    res.status(200).json({ count: activeUsersCount });
+  } catch (error) {
+    console.error("Failed to fetch active users:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
   
