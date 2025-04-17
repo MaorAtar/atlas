@@ -56,10 +56,6 @@ function InfoSection({ trip }) {
             </span>
           </div>
         </div>
-        <Button className="mt-4 md:mt-0 flex items-center gap-2 bg-gradient-to-r from-teal-500 to-teal-700 text-white px-5 py-2 rounded-full shadow-lg">
-          Share
-          <Send />
-        </Button>
       </div>
     </div>
   );

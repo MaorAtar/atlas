@@ -1,66 +1,52 @@
 import React, { useEffect, useState } from 'react';
-import { useUser } from '@clerk/clerk-react';
-import { useNavigate } from 'react-router-dom';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore';
 import { db } from '@/service/firebaseConfig';
-import UserTripCardItem from './components/UserTripCardItem';
-import { FiSearch } from 'react-icons/fi';
+import UserTripCardItem from '@/my-trips/components/UserTripCardItem';
+import { FiSearch, FiTrash } from 'react-icons/fi';
 
-function MyTrips() {
-  const { user } = useUser();
-  const navigate = useNavigate();
-  const [userTrips, setUserTrips] = useState([]);
+function AdminAllTrips() {
+  const [allTrips, setAllTrips] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredTrips, setFilteredTrips] = useState([]);
 
   useEffect(() => {
-    if (user) {
-      GetUserTrips();
-    }
-  }, [user]);
+    fetchAllTrips();
+  }, []);
 
   useEffect(() => {
     const lowerCaseQuery = searchQuery.toLowerCase();
-    const filtered = userTrips.filter((trip) =>
+    const filtered = allTrips.filter((trip) =>
       trip?.userSelection?.location?.label?.toLowerCase().includes(lowerCaseQuery)
     );
     setFilteredTrips(filtered);
-  }, [searchQuery, userTrips]);
+  }, [searchQuery, allTrips]);
 
-  const GetUserTrips = async () => {
-    if (!user) {
-      navigate('/');
-      return;
-    }
-
-    const userEmail = user?.emailAddresses?.[0]?.emailAddress;
-
-    if (!userEmail) {
-      console.error('User email is not available');
-      return;
-    }
-
+  const fetchAllTrips = async () => {
     try {
-      const q = query(collection(db, 'AITrips'), where('userEmail', '==', userEmail));
-      const querySnapshot = await getDocs(q);
-      setUserTrips([]);
-      querySnapshot.forEach((doc) => {
-        setUserTrips((prevVal) => [...prevVal, doc.data()]);
-      });
+      const querySnapshot = await getDocs(collection(db, 'AITrips'));
+      const trips = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setAllTrips(trips);
     } catch (error) {
       console.error('Error fetching trips:', error);
     }
   };
 
+  const deleteTrip = async (tripId) => {
+    try {
+      await deleteDoc(doc(db, 'AITrips', tripId));
+      setAllTrips(allTrips.filter(trip => trip.id !== tripId));
+    } catch (error) {
+      console.error('Error deleting trip:', error);
+    }
+  };
+
   return (
     <div className="mr-20 ml-20 sm:px-10 md:px-32 lg:px-56 xl:px-10 px-5 mt-10">
-      {/* Header Section */}
       <div className="flex flex-col items-center mb-12">
         <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-3 text-center">
-          My Trips
+          All Trips
         </h2>
         <div className="w-16 h-1 bg-gradient-to-r from-teal-500 to-teal-300 rounded-full"></div>
-        {/* Search Bar */}
         <div className="w-full mt-6 flex items-center justify-center">
           <div className="relative w-full max-w-lg">
             <input
@@ -75,15 +61,22 @@ function MyTrips() {
         </div>
       </div>
 
-      {/* Trips Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mb-5">
         {filteredTrips.length > 0 ? (
-          filteredTrips.map((trip, index) => (
-            <UserTripCardItem trip={trip} key={index} />
+          filteredTrips.map((trip) => (
+            <div key={trip.id} className="relative">
+              <UserTripCardItem trip={trip} />
+              <button
+                onClick={() => deleteTrip(trip.id)}
+                className="absolute top-2 right-2 bg-red-500 text-white p-2 rounded-full shadow-md hover:bg-red-600"
+              >
+                <FiTrash className="h-5 w-5" />
+              </button>
+            </div>
           ))
         ) : (
           <div className="col-span-full text-center text-gray-500">
-            No trips match your search criteria.
+            No trips available.
           </div>
         )}
       </div>
@@ -91,4 +84,4 @@ function MyTrips() {
   );
 }
 
-export default MyTrips;
+export default AdminAllTrips;
