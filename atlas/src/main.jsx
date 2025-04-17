@@ -9,6 +9,7 @@ import { Toaster } from './components/ui/sonner'
 import { ClerkProvider, RedirectToSignIn, SignedIn, SignedOut, SignIn, SignUp } from '@clerk/clerk-react'
 import ViewTrip from './view-trip/[tripId]'
 import MyTrips from './my-trips'
+import FlightSearch from './flights/FlightSearch'
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
   {
     path: '/my-trips',
     element: <MyTrips />
+  },
+  {
+    path: '/flights',
+    element: <FlightSearch />
   },
 ]);
 
