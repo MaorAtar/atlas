@@ -9,7 +9,7 @@ import { Toaster } from './components/ui/sonner'
 import { ClerkProvider, RedirectToSignIn, SignedIn, SignedOut, SignIn, SignUp } from '@clerk/clerk-react'
 import ViewTrip from './view-trip/[tripId]'
 import MyTrips from './my-trips'
-import FlightSearch from './flights/FlightSearch'
+
 import AdminManageUsers from './admin-manage-users'
 import AdminDashboard from './admin-dashboard'
 import AdminAllTrips from './admin-all-trips'
