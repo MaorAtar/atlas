@@ -6,6 +6,7 @@ import { RiDashboard3Line } from "react-icons/ri";
 import { MdManageAccounts } from "react-icons/md";
 import { CiViewTimeline } from "react-icons/ci";
 import { Plus, LogIn } from 'lucide-react';
+import { PiEyesFill } from "react-icons/pi";
 import 'typeface-audiowide'; // Importing Audiowide font
 
 function Header() {
@@ -35,6 +36,16 @@ function Header() {
       {/* Right Section */}
       <div className="flex items-center gap-4">
         <SignedOut>
+            <a href="/view-trip/1734985792809">
+              <Button
+                variant="solid"
+                className="rounded-full bg-teal-600 hover:bg-teal-700 text-white shadow-md px-4 py-1 h-8 text-sm flex items-center gap-2 transition-transform transform hover:scale-105"
+              >
+                <PiEyesFill  className="w-4 h-4" />
+                Example Trip
+              </Button>
+            </a>
+
           <SignInButton mode="modal">
             <Button
               variant="solid"
