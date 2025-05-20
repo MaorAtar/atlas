@@ -16,7 +16,13 @@ function AdminManageUsers() {
   const isValidImageUrl = (url) => {
     try {
       const parsedUrl = new URL(url);
-      return ['http:', 'https:'].includes(parsedUrl.protocol);
+      const allowedProtocols = ['http:', 'https:'];
+      const allowedExtensions = ['.png', '.jpg', '.jpeg', '.gif', '.webp'];
+
+      if (!allowedProtocols.includes(parsedUrl.protocol)) return false;
+
+      const pathname = parsedUrl.pathname.toLowerCase();
+      return allowedExtensions.some(ext => pathname.endsWith(ext));
     } catch (e) {
       return false;
     }
