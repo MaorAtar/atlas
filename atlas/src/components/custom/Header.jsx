@@ -36,7 +36,7 @@ function Header() {
       {/* Right Section */}
       <div className="flex items-center gap-4">
         <SignedOut>
-            <a href="/view-trip/1734985792809">
+            <a href="/view-trip/1747724455883">
               <Button
                 variant="solid"
                 className="rounded-full bg-teal-600 hover:bg-teal-700 text-white shadow-md px-4 py-1 h-8 text-sm flex items-center gap-2 transition-transform transform hover:scale-105"
