@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Trash2 } from "lucide-react"; // Import trash icon
+import { Trash2 } from "lucide-react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -8,21 +8,26 @@ function AdminManageUsers() {
   const [loading, setLoading] = useState(true);
 
   const capitalizeFirstLetter = (string) => {
-    if (!string) return ""; // Return an empty string if the input is undefined or falsy
+    if (!string) return "";
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  };
+
+  // ✅ XSS protection: Validate image URLs
+  const isValidImageUrl = (url) => {
+    try {
+      const parsedUrl = new URL(url);
+      return ['http:', 'https:'].includes(parsedUrl.protocol);
+    } catch (e) {
+      return false;
+    }
   };
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         const response = await fetch("http://localhost:5000/api/getUsers");
-
-        if (!response.ok) {
-          throw new Error(`Error fetching users: ${response.statusText}`);
-        }
-
+        if (!response.ok) throw new Error(`Error fetching users: ${response.statusText}`);
         const users = await response.json();
-
         setUsers(users);
         setLoading(false);
       } catch (error) {
@@ -43,15 +48,13 @@ function AdminManageUsers() {
         method: "DELETE",
       });
 
-      if (!response.ok) {
-        throw new Error(`Failed to delete user: ${response.statusText}`);
-      }
+      if (!response.ok) throw new Error(`Failed to delete user: ${response.statusText}`);
 
       setUsers(users.filter((user) => user.id !== userId));
-      toast.success("User deleted successfully!"); // Toast message
+      toast.success("User deleted successfully!");
     } catch (error) {
       console.error("Error deleting user:", error);
-      toast.error("Error deleting user!"); // Error toast message
+      toast.error("Error deleting user!");
     }
   };
 
@@ -59,24 +62,21 @@ function AdminManageUsers() {
     try {
       const response = await fetch(`http://localhost:5000/api/changeUserRole/${userId}`, {
         method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ role: newRole }), // Ensure you send the correct body structure
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ role: newRole }),
       });
 
-      if (!response.ok) {
-        throw new Error(`Failed to change role: ${response.statusText}`);
-      }
+      if (!response.ok) throw new Error(`Failed to change role: ${response.statusText}`);
 
-      // Update the user in the state immediately
-      setUsers(users.map(user => 
-        user.id === userId ? { ...user, public_metadata: { ...user.public_metadata, role: newRole } } : user
+      setUsers(users.map(user =>
+        user.id === userId
+          ? { ...user, public_metadata: { ...user.public_metadata, role: newRole } }
+          : user
       ));
-      toast.success("User role updated successfully!"); // Toast message
+      toast.success("User role updated successfully!");
     } catch (error) {
       console.error("Error changing user role:", error);
-      toast.error("Error updating user role!"); // Error toast message
+      toast.error("Error updating user role!");
     }
   };
 
@@ -113,7 +113,9 @@ function AdminManageUsers() {
               >
                 <td className="py-4 px-4">
                   <img
-                    src={user.image_url || "https://via.placeholder.com/50"}
+                    src={isValidImageUrl(user.image_url)
+                      ? user.image_url
+                      : "https://via.placeholder.com/50"}
                     alt="Profile"
                     className="w-14 h-14 rounded-full object-cover"
                   />
@@ -124,7 +126,6 @@ function AdminManageUsers() {
                   {user.email_addresses[0]?.email_address || "No email"}
                 </td>
                 <td className="py-4 px-6 text-gray-700">
-                  {/* Display current role */}
                   {capitalizeFirstLetter(user.public_metadata?.role) || "Member"}
                 </td>
                 <td className="py-4 px-6 text-center flex items-center justify-center gap-2">

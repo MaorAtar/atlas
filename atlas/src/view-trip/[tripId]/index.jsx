@@ -18,7 +18,7 @@ function ViewTrip() {
   const { tripId } = useParams();
   const [trip, setTrip] = useState([]);
   const tripRef = useRef();
-  const shareUrl = `${window.location.href}`;
+  const shareUrl = `${window.location.origin}/view-trip/${tripId}`;
 
   useEffect(() => {
     tripId && GetTripData();

@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import fetch from "node-fetch"; // Required for making API requests in Node.js
+import helmet from "helmet";
 
 dotenv.config();
 
@@ -9,6 +10,7 @@ const app = express();
 const PORT = 5000;
 
 app.use(cors()); // Allow all origins
+app.use(helmet()); // Set security-related HTTP headers
 app.use(express.json()); // Parse JSON requests
 
 app.get("/api/getUsers", async (req, res) => {
