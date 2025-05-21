@@ -2,6 +2,12 @@ import React from 'react';
 import PlaceCardItem from './PlaceCardItem';
 
 function PlacesToVisit({ trip }) {
+    if (!trip?.tripData?.itinerary) {
+    return (
+      <div className="mt-10 text-lg text-gray-600">No itinerary available for this trip.</div>
+    );
+  }
+  
   return (
     <div className="mt-10">
       <h2 className="text-4xl font-extrabold text-gray-800 mb-8">Places to Visit</h2>

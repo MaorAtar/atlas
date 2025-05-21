@@ -116,7 +116,6 @@ function AdminDashboard() {
       imageUrl: destinationPhotoUrls[name],
     })));
 
-    console.log(tripsData);
     setApiStatus("Data fetched successfully");
   }
   fetchData();
