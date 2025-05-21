@@ -1,4 +1,4 @@
-import { GetPlaceDetails, PHOTO_REF_URL } from '@/service/GlobalApi';
+import { GetPlaceDetailsFromBackend, GetPlacePhotoUrlFromBackend } from '@/service/BackendApi';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -6,16 +6,23 @@ function UserTripCardItem({ trip }) {
   const [photoUrl, setPhotoUrl] = useState();
 
   useEffect(() => {
-    trip && GetPlacePhoto();
+    trip && fetchPlacePhoto();
   }, [trip]);
 
-  const GetPlacePhoto = async () => {
-    const data = { textQuery: trip?.userSelection?.location?.label };
-    const result = await GetPlaceDetails(data).then((resp) => {
-      const PhotoUrl = PHOTO_REF_URL.replace('{NAME}', resp.data.places[0].photos[0].name);
-      setPhotoUrl(PhotoUrl);
-    });
+  const fetchPlacePhoto = async () => {
+    try {
+      const data = { textQuery: trip?.userSelection?.location?.label };
+      const resp = await GetPlaceDetailsFromBackend(data);
+
+      if (resp.places?.[0]?.photos?.[0]?.name) {
+        const photoRef = resp.places[0].photos[0].name;
+        setPhotoUrl(GetPlacePhotoUrlFromBackend(photoRef));
+       }
+     } catch (err) {
+       console.error('Error fetching hotel photo:', err);
+     }
   };
+  
 
   return (
     <Link

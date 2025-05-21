@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Send } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { GetPlaceDetails } from '@/service/GlobalApi';
-
-const PHOTO_REF_URL =
-  'https://places.googleapis.com/v1/{NAME}/media?maxHeightPx=1000&maxWidthPx=1000&key=' +
-  import.meta.env.VITE_GOOGLE_PLACE_API_KEY;
+import { GetPlaceDetailsFromBackend, GetPlacePhotoUrlFromBackend } from '@/service/BackendApi';
 
 function InfoSection({ trip }) {
   const [photoUrl, setPhotoUrl] = useState();
@@ -14,13 +8,35 @@ function InfoSection({ trip }) {
     trip && GetPlacePhoto();
   }, [trip]);
 
-  const GetPlacePhoto = async () => {
-    const data = { textQuery: trip?.userSelection?.location?.label };
-    const result = await GetPlaceDetails(data).then((resp) => {
-      const PhotoUrl = PHOTO_REF_URL.replace('{NAME}', resp.data.places[0].photos[0].name);
-      setPhotoUrl(PhotoUrl);
-    });
-  };
+
+const GetPlacePhoto = async () => {
+  try {
+    const textQuery = trip?.userSelection?.location?.label;
+    console.log("textQuery value:", textQuery);
+
+    if (!textQuery) {
+      console.warn('No location label provided for the place photo request.');
+      return;
+    }
+
+    const data = { textQuery };
+    const resp = await GetPlaceDetailsFromBackend(data);
+
+    if (resp.places && resp.places.length > 0 && resp.places[0].photos)
+ {
+      const photoRef = resp.places[0].photos[0].name;
+      
+      setPhotoUrl(GetPlacePhotoUrlFromBackend(photoRef));
+    } else {
+      console.warn('No photo found for this place');
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+
+
 
   return (
     <div className="space-y-6">

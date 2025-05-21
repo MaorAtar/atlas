@@ -3,6 +3,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import fetch from "node-fetch"; // Required for making API requests in Node.js
 import helmet from "helmet";
+import axios from "axios";
+
 
 dotenv.config();
 
@@ -142,3 +144,61 @@ app.get("/api/getActiveUsers", async (req, res) => {
 });
 
   
+// Fetch Google Places photo by proxying through the backend
+app.get("/api/place-photo", async (req, res) => {
+  const { photoRef } = req.query;
+
+  if (!photoRef) {
+    return res.status(400).json({ error: "Missing photoRef parameter" });
+  }
+
+  try {
+    const googleApiKey = process.env.GOOGLE_PLACES_API_KEY;
+
+    if (!googleApiKey) {
+      return res.status(500).json({ error: "Google API Key is missing" });
+    }
+
+    const photoUrl = `https://places.googleapis.com/v1/${photoRef}/media?maxHeightPx=1000&maxWidthPx=1000&key=${googleApiKey}`;
+
+    const response = await fetch(photoUrl);
+
+    if (!response.ok) {
+      return res.status(response.status).json({ error: `Failed to fetch photo: ${response.statusText}` });
+    }
+
+    res.setHeader("Content-Type", response.headers.get("Content-Type") || "image/jpeg");
+    res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
+
+    const imageBuffer = await response.arrayBuffer();
+    res.send(Buffer.from(imageBuffer));
+
+  } catch (error) {
+    console.error("Error fetching place photo:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
+app.post('/api/place-details', async (req, res) => {
+  try {
+    const { textQuery } = req.body;
+    
+    const response = await axios.post(
+      'https://places.googleapis.com/v1/places:searchText',
+      { textQuery },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Goog-Api-Key':  process.env.GOOGLE_PLACES_API_KEY,
+          'X-Goog-FieldMask': 'places.photos,places.displayName,places.id'
+        }
+      }
+    );
+
+    res.json(response.data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to fetch place details' });
+  }
+});
