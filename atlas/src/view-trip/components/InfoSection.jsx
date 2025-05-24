@@ -12,7 +12,6 @@ function InfoSection({ trip }) {
 const GetPlacePhoto = async () => {
   try {
     const textQuery = trip?.userSelection?.location?.label;
-    console.log("textQuery value:", textQuery);
 
     if (!textQuery) {
       console.warn('No location label provided for the place photo request.');
