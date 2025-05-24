@@ -12,10 +12,11 @@ import {
   Pie,
   Cell,
 } from "recharts";
-import { User, Globe, Activity, CheckCircle, Star  } from "lucide-react";
+import { CheckCircle, Star  } from "lucide-react";
 import { CiExport } from "react-icons/ci";
 import { Button } from "@/components/ui/button";
-import { GetPlaceDetails, PHOTO_REF_URL } from '@/service/GlobalApi';
+import { GetPlaceDetails } from '@/service/GlobalApi';
+import { GetPlacePhotoUrlFromBackend } from "@/service/BackendApi";
 
 function AdminDashboard() {
   const [totalUsers, setTotalUsers] = useState(0);
@@ -99,9 +100,11 @@ function AdminDashboard() {
       // Fetch photo URL if not already fetched
       if (!destinationPhotoUrls[destination]) {
         const data = { textQuery: destination };
-        const result = await GetPlaceDetails(data); // Ensure this function is defined and works as expected
-        const PhotoUrl = PHOTO_REF_URL.replace('{NAME}', result.data.places[0].photos[0].name);
-        destinationPhotoUrls[destination] = PhotoUrl;
+        const result = await GetPlaceDetails(data); 
+        if (result.data.places?.[0]?.photos?.[0]?.name) {
+          const photoRef = result.data.places?.[0]?.photos?.[0]?.name;
+          destinationPhotoUrls[destination] = GetPlacePhotoUrlFromBackend(photoRef);
+        }
       }
     }
 
