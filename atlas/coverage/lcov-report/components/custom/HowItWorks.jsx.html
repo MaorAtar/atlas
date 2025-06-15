@@ -133,7 +133,17 @@
 <a name='L68'></a><a href='#L68'>68</a>
 <a name='L69'></a><a href='#L69'>69</a>
 <a name='L70'></a><a href='#L70'>70</a>
-<a name='L71'></a><a href='#L71'>71</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -203,65 +213,73 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
-import { TbPentagonNumber1, TbPentagonNumber2, TbPentagonNumber3 } from "react-icons/tb";
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react";
+import {
+  TbPentagonNumber1,
+  TbPentagonNumber2,
+  TbPentagonNumber3,
+} from "react-icons/tb";
 &nbsp;
 const HowItWorks = () =&gt; {
   return (
-    &lt;div className="py-16 bg-teal-50"&gt;
-      &lt;div className="max-w-7xl mx-auto text-center"&gt;
-        &lt;h2 className="text-4xl font-bold mb-10"&gt;How It Works&lt;/h2&gt;
+    &lt;div className="py-14 bg-teal-50"&gt;
+      &lt;div className="max-w-7xl mx-auto text-center px-4"&gt;
+        &lt;h2 className="text-3xl md:text-4xl font-bold mb-10"&gt;How It Works&lt;/h2&gt;
 &nbsp;
         &lt;div className="space-y-12"&gt;
           {/* Step 1 */}
-          &lt;div className="flex flex-col md:flex-row items-center p-6 bg-white shadow-lg rounded-lg max-w-7xl mx-auto"&gt;
-            &lt;div className="flex-1 text-center mb-4 md:mb-0"&gt;
-              &lt;TbPentagonNumber1 className="text-5xl text-teal-500 mb-4" /&gt;
-              &lt;p className="text-xl text-gray-600"&gt;
-                Choose your destination, trip dates, and travel preferences to start planning
+          &lt;div className="flex flex-col-reverse md:flex-row items-center p-6 bg-white shadow-lg rounded-lg"&gt;
+            &lt;div className="flex-1 text-center mt-6 md:mt-0 md:pr-6"&gt;
+              &lt;TbPentagonNumber1 className="text-4xl md:text-5xl text-teal-500 mb-4 mx-auto" /&gt;
+              &lt;p className="text-lg md:text-xl text-gray-600"&gt;
+                Choose your destination, trip dates, and travel preferences to
+                start planning
               &lt;/p&gt;
             &lt;/div&gt;
 &nbsp;
-            &lt;div className="flex-shrink-0 w-[500px] h-[500px]"&gt;
+            &lt;div className="flex-shrink-0 w-full md:w-[500px] h-[280px] md:h-[500px]"&gt;
               &lt;img
-                src='/homepage-pictures/step1.png'
-                alt='step1'
+                src="/homepage-pictures/step1.png"
+                alt="step1"
                 className="w-full h-full object-contain rounded-lg"
               /&gt;
             &lt;/div&gt;
           &lt;/div&gt;
 &nbsp;
           {/* Step 2 */}
-          &lt;div className="flex flex-col md:flex-row items-center p-6 bg-white shadow-lg rounded-lg max-w-7xl mx-auto"&gt;
-            &lt;div className="flex-1 text-center mb-4 md:mb-0"&gt;
-              &lt;TbPentagonNumber2 className="text-5xl text-teal-500 mb-4" /&gt;
-              &lt;p className="text-xl text-gray-600"&gt;
-                Based on your input, our AI-powered system generates a customized travel plan
+          &lt;div className="flex flex-col-reverse md:flex-row items-center p-6 bg-white shadow-lg rounded-lg"&gt;
+            &lt;div className="flex-1 text-center mt-6 md:mt-0 md:pr-6"&gt;
+              &lt;TbPentagonNumber2 className="text-4xl md:text-5xl text-teal-500 mb-4 mx-auto" /&gt;
+              &lt;p className="text-lg md:text-xl text-gray-600"&gt;
+                Based on your input, our AI-powered system generates a
+                customized travel plan
               &lt;/p&gt;
             &lt;/div&gt;
 &nbsp;
-            &lt;div className="flex-shrink-0 w-[500px] h-[500px]"&gt;
+            &lt;div className="flex-shrink-0 w-full md:w-[500px] h-[280px] md:h-[500px]"&gt;
               &lt;img
-                src='/homepage-pictures/step2.png'
-                alt='step2'
+                src="/homepage-pictures/step2.png"
+                alt="step2"
                 className="w-full h-full object-contain rounded-lg"
               /&gt;
             &lt;/div&gt;
           &lt;/div&gt;
 &nbsp;
           {/* Step 3 */}
-          &lt;div className="flex flex-col md:flex-row items-center p-6 bg-white shadow-lg rounded-lg max-w-7xl mx-auto"&gt;
-            &lt;div className="flex-1 text-center mb-4 md:mb-0"&gt;
-              &lt;TbPentagonNumber3 className="text-5xl text-teal-500 mb-4" /&gt;
-              &lt;p className="text-xl text-gray-600"&gt;
+          &lt;div className="flex flex-col-reverse md:flex-row items-center p-6 bg-white shadow-lg rounded-lg"&gt;
+            &lt;div className="flex-1 text-center mt-6 md:mt-0 md:pr-6"&gt;
+              &lt;TbPentagonNumber3 className="text-4xl md:text-5xl text-teal-500 mb-4 mx-auto" /&gt;
+              &lt;p className="text-lg md:text-xl text-gray-600"&gt;
                 Review your itinerary, and finalize your booking
               &lt;/p&gt;
             &lt;/div&gt;
 &nbsp;
-            &lt;div className="flex-shrink-0 w-[500px] h-[500px]"&gt;
+            &lt;div className="flex-shrink-0 w-full md:w-[500px] h-[280px] md:h-[500px]"&gt;
               &lt;img
-                src='/homepage-pictures/step3.png'
-                alt='step3'
+                src="/homepage-pictures/step3.png"
+                alt="step3"
                 className="w-full h-full object-contain rounded-lg"
               /&gt;
             &lt;/div&gt;
@@ -280,7 +298,7 @@ export default HowItWorks;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-05-21T11:17:11.677Z
+                at 2025-06-15T20:03:40.558Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { useUser } from '@clerk/clerk-react';
-import { useNavigate } from 'react-router-dom';
-import { collection, getDocs, query, where } from 'firebase/firestore';
-import { db } from '@/service/firebaseConfig';
-import UserTripCardItem from './components/UserTripCardItem';
-import { FiSearch } from 'react-icons/fi';
+import React, { useEffect, useState } from "react";
+import { useUser } from "@clerk/clerk-react";
+import { useNavigate } from "react-router-dom";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "@/service/firebaseConfig";
+import UserTripCardItem from "./components/UserTripCardItem";
+import { FiSearch } from "react-icons/fi";
 
 function MyTrips() {
   const { user } = useUser();
   const navigate = useNavigate();
   const [userTrips, setUserTrips] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [filteredTrips, setFilteredTrips] = useState([]);
 
   useEffect(() => {
@@ -22,44 +22,50 @@ function MyTrips() {
   useEffect(() => {
     const lowerCaseQuery = searchQuery.toLowerCase();
     const filtered = userTrips.filter((trip) =>
-      trip?.userSelection?.location?.label?.toLowerCase().includes(lowerCaseQuery)
+      trip?.userSelection?.location?.label
+        ?.toLowerCase()
+        .includes(lowerCaseQuery)
     );
     setFilteredTrips(filtered);
   }, [searchQuery, userTrips]);
 
   const GetUserTrips = async () => {
     if (!user) {
-      navigate('/');
+      navigate("/");
       return;
     }
 
     const userEmail = user?.emailAddresses?.[0]?.emailAddress;
 
     if (!userEmail) {
-      console.error('User email is not available');
+      console.error("User email is not available");
       return;
     }
 
     try {
-      const q = query(collection(db, 'AITrips'), where('userEmail', '==', userEmail));
+      const q = query(
+        collection(db, "AITrips"),
+        where("userEmail", "==", userEmail)
+      );
       const querySnapshot = await getDocs(q);
       setUserTrips([]);
       querySnapshot.forEach((doc) => {
         setUserTrips((prevVal) => [...prevVal, doc.data()]);
       });
     } catch (error) {
-      console.error('Error fetching trips:', error);
+      console.error("Error fetching trips:", error);
     }
   };
 
   return (
-    <div className="mr-20 ml-20 sm:px-10 md:px-32 lg:px-56 xl:px-10 px-5 mt-10">
+    <div className="px-5 sm:px-10 md:px-20 lg:px-32 xl:px-56 mt-10 max-w-7xl mx-auto">
       {/* Header Section */}
       <div className="flex flex-col items-center mb-12">
-        <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-3 text-center">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-800 mb-3 text-center">
           My Trips
         </h2>
         <div className="w-16 h-1 bg-gradient-to-r from-teal-500 to-teal-300 rounded-full"></div>
+
         {/* Search Bar */}
         <div className="w-full mt-6 flex items-center justify-center">
           <div className="relative w-full max-w-lg">
