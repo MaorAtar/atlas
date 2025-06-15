@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1747728088531" clover="3.2.0">
-  <project timestamp="1747728088531" name="All files">
-    <metrics statements="42" coveredstatements="42" conditionals="17" coveredconditionals="15" methods="19" coveredmethods="19" elements="78" coveredelements="76" complexity="0" loc="42" ncloc="42" packages="3" files="9" classes="9"/>
+<coverage generated="1750017820583" clover="3.2.0">
+  <project timestamp="1750017820583" name="All files">
+    <metrics statements="43" coveredstatements="43" conditionals="19" coveredconditionals="17" methods="19" coveredmethods="19" elements="81" coveredelements="79" complexity="0" loc="43" ncloc="43" packages="3" files="9" classes="9"/>
     <package name="components.custom">
-      <metrics statements="36" coveredstatements="36" conditionals="14" coveredconditionals="13" methods="17" coveredmethods="17"/>
+      <metrics statements="37" coveredstatements="37" conditionals="16" coveredconditionals="15" methods="17" coveredmethods="17"/>
       <file name="ContactUs.jsx" path="C:\Users\maora\OneDrive\Desktop\atlas\atlas\src\components\custom\ContactUs.jsx">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="5" count="9" type="stmt"/>
+        <line num="5" count="5" type="stmt"/>
       </file>
       <file name="CustomLoader.jsx" path="C:\Users\maora\OneDrive\Desktop\atlas\atlas\src\components\custom\CustomLoader.jsx">
-        <metrics statements="5" coveredstatements="5" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
-        <line num="5" count="6" type="stmt"/>
-        <line num="6" count="6" type="stmt"/>
-        <line num="7" count="6" type="stmt"/>
-        <line num="9" count="6" type="stmt"/>
+        <metrics statements="6" coveredstatements="6" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
+        <line num="10" count="6" type="stmt"/>
+        <line num="12" count="6" type="stmt"/>
+        <line num="13" count="6" type="cond" truecount="2" falsecount="0"/>
         <line num="14" count="5" type="stmt"/>
+        <line num="18" count="6" type="stmt"/>
+        <line num="31" count="5" type="stmt"/>
       </file>
       <file name="Features.jsx" path="C:\Users\maora\OneDrive\Desktop\atlas\atlas\src\components\custom\Features.jsx">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="4" count="7" type="stmt"/>
-        <line num="22" count="7" type="stmt"/>
-        <line num="27" count="21" type="stmt"/>
+        <line num="23" count="7" type="stmt"/>
+        <line num="30" count="21" type="stmt"/>
       </file>
       <file name="Hero.jsx" path="C:\Users\maora\OneDrive\Desktop\atlas\atlas\src\components\custom\Hero.jsx">
         <metrics statements="11" coveredstatements="11" conditionals="8" coveredconditionals="8" methods="3" coveredmethods="3"/>
@@ -38,24 +39,24 @@
       </file>
       <file name="HowItWorks.jsx" path="C:\Users\maora\OneDrive\Desktop\atlas\atlas\src\components\custom\HowItWorks.jsx">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="5" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="5" type="stmt"/>
       </file>
       <file name="UserGallery.jsx" path="C:\Users\maora\OneDrive\Desktop\atlas\atlas\src\components\custom\UserGallery.jsx">
         <metrics statements="13" coveredstatements="13" conditionals="4" coveredconditionals="3" methods="6" coveredmethods="6"/>
         <line num="5" count="1" type="stmt"/>
         <line num="6" count="9" type="stmt"/>
-        <line num="13" count="9" type="stmt"/>
-        <line num="15" count="9" type="stmt"/>
-        <line num="16" count="2" type="stmt"/>
-        <line num="19" count="9" type="stmt"/>
-        <line num="20" count="1" type="stmt"/>
-        <line num="21" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="25" count="9" type="stmt"/>
-        <line num="26" count="9" type="stmt"/>
-        <line num="27" count="9" type="stmt"/>
-        <line num="29" count="9" type="stmt"/>
-        <line num="95" count="36" type="stmt"/>
+        <line num="33" count="9" type="stmt"/>
+        <line num="35" count="9" type="stmt"/>
+        <line num="36" count="2" type="stmt"/>
+        <line num="39" count="9" type="stmt"/>
+        <line num="40" count="1" type="stmt"/>
+        <line num="41" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="45" count="9" type="stmt"/>
+        <line num="46" count="9" type="stmt"/>
+        <line num="47" count="9" type="stmt"/>
+        <line num="49" count="9" type="stmt"/>
+        <line num="126" count="36" type="stmt"/>
       </file>
       <file name="WhatsIncluded.jsx" path="C:\Users\maora\OneDrive\Desktop\atlas\atlas\src\components\custom\WhatsIncluded.jsx">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>

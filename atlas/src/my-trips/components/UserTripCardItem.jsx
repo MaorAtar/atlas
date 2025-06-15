@@ -1,6 +1,9 @@
-import { GetPlaceDetailsFromBackend, GetPlacePhotoUrlFromBackend } from '@/service/BackendApi';
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import {
+  GetPlaceDetailsFromBackend,
+  GetPlacePhotoUrlFromBackend,
+} from "@/service/BackendApi";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 function UserTripCardItem({ trip }) {
   const [photoUrl, setPhotoUrl] = useState();
@@ -17,12 +20,11 @@ function UserTripCardItem({ trip }) {
       if (resp.places?.[0]?.photos?.[0]?.name) {
         const photoRef = resp.places[0].photos[0].name;
         setPhotoUrl(GetPlacePhotoUrlFromBackend(photoRef));
-       }
-     } catch (err) {
-       console.error('Error fetching hotel photo:', err);
-     }
+      }
+    } catch (err) {
+      console.error("Error fetching hotel photo:", err);
+    }
   };
-  
 
   return (
     <Link
@@ -30,10 +32,10 @@ function UserTripCardItem({ trip }) {
       className="block group relative rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden"
     >
       {/* Image Section */}
-      <div className="relative h-[250px] overflow-hidden rounded-t-xl">
+      <div className="relative h-[200px] sm:h-[220px] md:h-[250px] overflow-hidden rounded-t-xl">
         <img
-          src={photoUrl ? photoUrl : '/placeholder 2.png'}
-          alt={trip?.userSelection?.location?.label || 'Trip Image'}
+          src={photoUrl ? photoUrl : "/placeholder 2.png"}
+          alt={trip?.userSelection?.location?.label || "Trip Image"}
           className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500"
         />
         {/* Overlay */}
@@ -42,14 +44,16 @@ function UserTripCardItem({ trip }) {
 
       {/* Content Section */}
       <div className="p-4 bg-white rounded-b-xl">
-        <h2 className="text-lg font-extrabold text-gray-800 group-hover:text-teal-500 transition-colors duration-300">
+        <h2 className="text-base sm:text-lg font-extrabold text-gray-800 group-hover:text-teal-500 transition-colors duration-300">
           {trip?.userSelection?.location?.label}
         </h2>
         <p className="text-sm text-gray-500 mt-1">
-          {trip?.userSelection?.numOfDays} days trip with a {trip?.userSelection?.budget} budget
+          {trip?.userSelection?.numOfDays} days trip with a{" "}
+          {trip?.userSelection?.budget} budget
         </p>
+
         {/* Badge Section */}
-        <div className="mt-3 flex items-center gap-2">
+        <div className="mt-3 flex flex-wrap items-center gap-2">
           <span className="px-3 py-1 text-xs font-semibold text-teal-700 bg-teal-100 rounded-full">
             {trip?.userSelection?.numOfDays} Days
           </span>

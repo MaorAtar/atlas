@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore';
-import { db } from '@/service/firebaseConfig';
-import UserTripCardItem from '@/my-trips/components/UserTripCardItem';
-import { FiSearch, FiTrash } from 'react-icons/fi';
+import React, { useEffect, useState } from "react";
+import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { db } from "@/service/firebaseConfig";
+import UserTripCardItem from "@/my-trips/components/UserTripCardItem";
+import { FiSearch, FiTrash } from "react-icons/fi";
 
 function AdminAllTrips() {
   const [allTrips, setAllTrips] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [filteredTrips, setFilteredTrips] = useState([]);
 
   useEffect(() => {
@@ -16,37 +16,45 @@ function AdminAllTrips() {
   useEffect(() => {
     const lowerCaseQuery = searchQuery.toLowerCase();
     const filtered = allTrips.filter((trip) =>
-      trip?.userSelection?.location?.label?.toLowerCase().includes(lowerCaseQuery)
+      trip?.userSelection?.location?.label
+        ?.toLowerCase()
+        .includes(lowerCaseQuery)
     );
     setFilteredTrips(filtered);
   }, [searchQuery, allTrips]);
 
   const fetchAllTrips = async () => {
     try {
-      const querySnapshot = await getDocs(collection(db, 'AITrips'));
-      const trips = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      const querySnapshot = await getDocs(collection(db, "AITrips"));
+      const trips = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
       setAllTrips(trips);
     } catch (error) {
-      console.error('Error fetching trips:', error);
+      console.error("Error fetching trips:", error);
     }
   };
 
   const deleteTrip = async (tripId) => {
     try {
-      await deleteDoc(doc(db, 'AITrips', tripId));
-      setAllTrips(allTrips.filter(trip => trip.id !== tripId));
+      await deleteDoc(doc(db, "AITrips", tripId));
+      setAllTrips(allTrips.filter((trip) => trip.id !== tripId));
     } catch (error) {
-      console.error('Error deleting trip:', error);
+      console.error("Error deleting trip:", error);
     }
   };
 
   return (
-    <div className="mr-20 ml-20 sm:px-10 md:px-32 lg:px-56 xl:px-10 px-5 mt-10">
-      <div className="flex flex-col items-center mb-12">
-        <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-3 text-center">
+    <div className="px-5 sm:px-10 md:px-20 xl:px-56 mt-10">
+      {/* Header */}
+      <div className="flex flex-col items-center mb-10">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-800 mb-3 text-center">
           All Trips
         </h2>
         <div className="w-16 h-1 bg-gradient-to-r from-teal-500 to-teal-300 rounded-full"></div>
+
+        {/* Search Bar */}
         <div className="w-full mt-6 flex items-center justify-center">
           <div className="relative w-full max-w-lg">
             <input
@@ -61,7 +69,8 @@ function AdminAllTrips() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mb-5">
+      {/* Trips Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-5">
         {filteredTrips.length > 0 ? (
           filteredTrips.map((trip) => (
             <div key={trip.id} className="relative">
@@ -75,7 +84,7 @@ function AdminAllTrips() {
             </div>
           ))
         ) : (
-          <div className="col-span-full text-center text-gray-500">
+          <div className="col-span-full text-center text-gray-500 text-sm sm:text-base">
             No trips available.
           </div>
         )}

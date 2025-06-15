@@ -1,17 +1,17 @@
 // __tests__/Hero.test.jsx
-import React from 'react';
-import { render, screen, act } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-import Hero from '../src/components/custom/Hero';
+import React from "react";
+import { render, screen, act } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
+import Hero from "../src/components/custom/Hero";
 
 // Mock Clerk's useUser
-jest.mock('@clerk/clerk-react', () => ({
+jest.mock("@clerk/clerk-react", () => ({
   __esModule: true,
   useUser: jest.fn(),
 }));
-const { useUser } = require('@clerk/clerk-react');
+const { useUser } = require("@clerk/clerk-react");
 
-describe('Hero component', () => {
+describe("Hero component", () => {
   beforeEach(() => {
     jest.useFakeTimers();
     sessionStorage.clear();
@@ -22,7 +22,7 @@ describe('Hero component', () => {
     jest.useRealTimers();
   });
 
-  it('renders the background container with correct inline styles', () => {
+  it("renders the background container with correct inline styles", () => {
     useUser.mockReturnValue({ user: null });
     const { container } = render(
       <MemoryRouter>
@@ -30,12 +30,22 @@ describe('Hero component', () => {
       </MemoryRouter>
     );
     const root = container.firstChild;
-    expect(root).toHaveStyle(`background-image: url('/homepage-pictures/homepage-bg.jpg')`);
-    expect(root).toHaveStyle('height: 75vh');
-    expect(root).toHaveClass('relative', 'bg-cover', 'bg-center', 'flex', 'flex-col', 'items-center', 'justify-center');
+    expect(root).toHaveStyle(
+      `background-image: url('/homepage-pictures/homepage-bg.jpg')`
+    );
+    expect(root).toHaveStyle("height: 75vh");
+    expect(root).toHaveClass(
+      "relative",
+      "bg-cover",
+      "bg-center",
+      "flex",
+      "flex-col",
+      "items-center",
+      "justify-center"
+    );
   });
 
-  it('always renders the main heading and paragraph', () => {
+  it("always renders the main heading and paragraph", () => {
     useUser.mockReturnValue({ user: null });
     render(
       <MemoryRouter>
@@ -43,7 +53,7 @@ describe('Hero component', () => {
       </MemoryRouter>
     );
     expect(
-      screen.getByRole('heading', {
+      screen.getByRole("heading", {
         name: /simplify travel planning/i,
       })
     ).toBeInTheDocument();
@@ -54,21 +64,28 @@ describe('Hero component', () => {
     ).toBeInTheDocument();
   });
 
-  it('renders the Start Planning link and button', () => {
+  it("renders the Start Planning link and button", () => {
     useUser.mockReturnValue({ user: null });
     render(
       <MemoryRouter>
         <Hero />
       </MemoryRouter>
     );
-    const link = screen.getByRole('link', { name: /start planning/i });
-    expect(link).toHaveAttribute('href', '/create-trip');
-    const button = screen.getByRole('button', { name: /start planning/i });
+    const link = screen.getByRole("link", { name: /start planning/i });
+    expect(link).toHaveAttribute("href", "/create-trip");
+    const button = screen.getByRole("button", { name: /start planning/i });
     expect(button).toBeInTheDocument();
-    expect(button).toHaveClass('mt-8', 'bg-teal-500', 'hover:bg-teal-700', 'transition-all', 'duration-300');
+    expect(button).toHaveClass(
+      "mt-6",
+      "md:mt-8",
+      "bg-teal-500",
+      "hover:bg-teal-700",
+      "transition-all",
+      "duration-300"
+    );
   });
 
-  it('does not show the admin toast when user is null or non-admin', () => {
+  it("does not show the admin toast when user is null or non-admin", () => {
     // No user
     useUser.mockReturnValue({ user: null });
     render(
@@ -80,7 +97,7 @@ describe('Hero component', () => {
 
     // Non-admin user
     sessionStorage.clear();
-    useUser.mockReturnValue({ user: { publicMetadata: { role: 'user' } } });
+    useUser.mockReturnValue({ user: { publicMetadata: { role: "user" } } });
     render(
       <MemoryRouter>
         <Hero />
@@ -89,8 +106,8 @@ describe('Hero component', () => {
     expect(screen.queryByText(/welcome, admin/i)).not.toBeInTheDocument();
   });
 
-  it('shows and auto-hides the admin toast when user is admin', () => {
-    useUser.mockReturnValue({ user: { publicMetadata: { role: 'admin' } } });
+  it("shows and auto-hides the admin toast when user is admin", () => {
+    useUser.mockReturnValue({ user: { publicMetadata: { role: "admin" } } });
 
     render(
       <MemoryRouter>
@@ -103,7 +120,7 @@ describe('Hero component', () => {
     expect(toast).toBeInTheDocument();
 
     // sessionStorage flag is set
-    expect(sessionStorage.getItem('adminToastShown')).toBe('true');
+    expect(sessionStorage.getItem("adminToastShown")).toBe("true");
 
     // Advance timers to auto-dismiss
     act(() => {
