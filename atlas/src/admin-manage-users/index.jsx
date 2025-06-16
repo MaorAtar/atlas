@@ -2,8 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Trash2 } from "lucide-react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { SignInButton, useUser } from "@clerk/clerk-react";
+import { Button } from "@/components/ui/button";
+import { FiAlertTriangle } from "react-icons/fi";
 
 function AdminManageUsers() {
+  const { user, isLoaded, isSignedIn } = useUser();
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -102,6 +106,42 @@ function AdminManageUsers() {
         <p className="text-teal-600 text-lg font-semibold">Loading users...</p>
       </div>
     );
+
+  if (!isLoaded) {
+    return <div>Loading...</div>;
+  }
+
+  if (!isSignedIn || user?.publicMetadata?.role !== "admin") {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen bg-gray-50 px-6">
+        <div className="text-red-500 mb-4">
+          <FiAlertTriangle className="w-16 h-16" />
+        </div>
+        <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+          Access Denied
+        </h2>
+        <p className="text-gray-600 mb-6 text-center max-w-md">
+          You do not have permission to view this page. If you believe this is a
+          mistake, please contact the administrator or sign in with an admin
+          account.
+        </p>
+        <div className="flex gap-4">
+          <a href="/">
+            <Button className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-2 rounded-full shadow-md">
+              Go to Home
+            </Button>
+          </a>
+          {!isSignedIn && (
+            <SignInButton mode="modal">
+              <Button className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-2 rounded-full shadow-md">
+                Sign In
+              </Button>
+            </SignInButton>
+          )}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col items-center p-8 bg-teal-50">

@@ -17,8 +17,11 @@ import { CiExport } from "react-icons/ci";
 import { Button } from "@/components/ui/button";
 import { GetPlaceDetails } from "@/service/GlobalApi";
 import { GetPlacePhotoUrlFromBackend } from "@/service/BackendApi";
+import { FiAlertTriangle } from "react-icons/fi";
+import { SignInButton, useUser } from "@clerk/clerk-react";
 
 function AdminDashboard() {
+  const { user, isLoaded, isSignedIn } = useUser();
   const [totalUsers, setTotalUsers] = useState(0);
   const [totalTrips, setTotalTrips] = useState(0);
   const [recentTrips, setRecentTrips] = useState([]);
@@ -166,6 +169,42 @@ function AdminDashboard() {
     document.body.appendChild(link);
     link.click();
   };
+
+  if (!isLoaded) {
+    return <div>Loading...</div>;
+  }
+
+  if (!isSignedIn || user?.publicMetadata?.role !== "admin") {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen bg-gray-50 px-6">
+        <div className="text-red-500 mb-4">
+          <FiAlertTriangle className="w-16 h-16" />
+        </div>
+        <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+          Access Denied
+        </h2>
+        <p className="text-gray-600 mb-6 text-center max-w-md">
+          You do not have permission to view this page. If you believe this is a
+          mistake, please contact the administrator or sign in with an admin
+          account.
+        </p>
+        <div className="flex gap-4">
+          <a href="/">
+            <Button className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-2 rounded-full shadow-md">
+              Go to Home
+            </Button>
+          </a>
+          {!isSignedIn && (
+            <SignInButton mode="modal">
+              <Button className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-2 rounded-full shadow-md">
+                Sign In
+              </Button>
+            </SignInButton>
+          )}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="p-8">
