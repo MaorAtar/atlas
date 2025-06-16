@@ -40,7 +40,10 @@ function AdminDashboard() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch("http://localhost:5000/api/getUsers");
+        const response = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/api/getUsers`
+        );
+
         if (!response.ok) {
           throw new Error(`Error fetching users: ${response.statusText}`);
         }
@@ -54,8 +57,9 @@ function AdminDashboard() {
 
       try {
         const activeResponse = await fetch(
-          "http://localhost:5000/api/getActiveUsers"
+          `${import.meta.env.VITE_BACKEND_URL}/api/getActiveUsers`
         );
+
         if (!activeResponse.ok) {
           throw new Error(
             `Error fetching active users: ${activeResponse.statusText}`

@@ -31,7 +31,10 @@ function AdminManageUsers() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/getUsers");
+        const response = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/api/getUsers`
+        );
+
         if (!response.ok)
           throw new Error(`Error fetching users: ${response.statusText}`);
         const users = await response.json();
@@ -54,7 +57,7 @@ function AdminManageUsers() {
   const deleteUser = async (userId) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/deleteUser/${userId}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/deleteUser/${userId}`,
         { method: "DELETE" }
       );
 
@@ -72,7 +75,7 @@ function AdminManageUsers() {
   const changeUserRole = async (userId, newRole) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/changeUserRole/${userId}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/changeUserRole/${userId}`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
