@@ -115,10 +115,14 @@ function Header() {
         <div className="absolute top-20 left-0 w-full bg-white shadow-md flex flex-col items-center py-6 gap-4 z-50">
           <SignedOut>
             <a href="/view-trip/1736182019702">
-              <Button className="w-64">Example Trip</Button>
+              <Button className="rounded-full bg-teal-600 hover:bg-teal-700 text-white w-64">
+                Example Trip
+              </Button>
             </a>
             <SignInButton mode="modal">
-              <Button className="w-64">Sign In</Button>
+              <Button className="rounded-full bg-teal-600 hover:bg-teal-700 text-white w-64">
+                Sign In
+              </Button>
             </SignInButton>
           </SignedOut>
 
@@ -126,21 +130,31 @@ function Header() {
             {user?.publicMetadata?.role === "admin" && (
               <>
                 <a href="/admin-dashboard">
-                  <Button className="w-64">Dashboard</Button>
+                  <Button className="rounded-full bg-teal-600 hover:bg-teal-700 text-white w-64">
+                    Dashboard
+                  </Button>
                 </a>
                 <a href="/admin-manage-users">
-                  <Button className="w-64">Manage Users</Button>
+                  <Button className="rounded-full bg-teal-600 hover:bg-teal-700 text-white w-64">
+                    Manage Users
+                  </Button>
                 </a>
                 <a href="/admin-all-trips">
-                  <Button className="w-64">All Trips</Button>
+                  <Button className="rounded-full bg-teal-600 hover:bg-teal-700 text-white w-64">
+                    All Trips
+                  </Button>
                 </a>
               </>
             )}
             <a href="/create-trip">
-              <Button className="w-64">Create Trip</Button>
+              <Button className="rounded-full bg-teal-600 hover:bg-teal-700 text-white w-64">
+                Create Trip
+              </Button>
             </a>
             <a href="/my-trips">
-              <Button className="w-64">My Trips</Button>
+              <Button className="rounded-full bg-teal-600 hover:bg-teal-700 text-white w-64">
+                My Trips
+              </Button>
             </a>
             <UserButton appearance={{ elements: { avatarBox: "h-8 w-8" } }} />
           </SignedIn>
