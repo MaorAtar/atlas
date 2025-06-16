@@ -1,26 +1,33 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import CreateTrip from './create-trip'
-import Header from './components/custom/Header'
-import { Toaster } from './components/ui/sonner'
-import { ClerkProvider, RedirectToSignIn, SignedIn, SignedOut, SignIn, SignUp } from '@clerk/clerk-react'
-import ViewTrip from './view-trip/[tripId]'
-import MyTrips from './my-trips'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.jsx";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import CreateTrip from "./create-trip";
+import Header from "./components/custom/Header";
+import { Toaster } from "./components/ui/sonner";
+import {
+  ClerkProvider,
+  RedirectToSignIn,
+  SignedIn,
+  SignedOut,
+  SignIn,
+  SignUp,
+} from "@clerk/clerk-react";
+import ViewTrip from "./view-trip/[tripId]";
+import MyTrips from "./my-trips";
 
-import AdminManageUsers from './admin-manage-users'
-import AdminDashboard from './admin-dashboard'
-import AdminAllTrips from './admin-all-trips'
+import AdminManageUsers from "./admin-manage-users";
+import AdminDashboard from "./admin-dashboard";
+import AdminAllTrips from "./admin-all-trips";
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <App />
+    path: "/",
+    element: <App />,
   },
   {
-    path: '/create-trip',
+    path: "/create-trip",
     element: (
       <>
         <SignedIn>
@@ -33,47 +40,47 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path:'view-trip/:tripId',
-    element: <ViewTrip/>
+    path: "view-trip/:tripId",
+    element: <ViewTrip />,
   },
   {
-    path: '/sign-in',
-    element: <SignIn />
+    path: "/sign-in",
+    element: <SignIn />,
   },
   {
-    path: '/sign-up',
-    element: <SignUp />
+    path: "/sign-up",
+    element: <SignUp />,
   },
   {
-    path: '/my-trips',
-    element: <MyTrips />
+    path: "/my-trips",
+    element: <MyTrips />,
   },
   {
-    path: '/admin-dashboard',
-    element: <AdminDashboard />
+    path: "/admin-dashboard",
+    element: <AdminDashboard />,
   },
   {
-    path: '/admin-manage-users',
-    element: <AdminManageUsers />
+    path: "/admin-manage-users",
+    element: <AdminManageUsers />,
   },
   {
-    path: '/admin-all-trips',
-    element: <AdminAllTrips />
+    path: "/admin-all-trips",
+    element: <AdminAllTrips />,
   },
 ]);
 
-const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
 if (!PUBLISHABLE_KEY) {
-  throw new Error("Missing Publishable Key")
+  throw new Error("Missing Publishable Key");
 }
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
-      <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
+    <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
       <Header />
       <Toaster />
       <RouterProvider router={router} />
     </ClerkProvider>
-  </StrictMode>,
-)
+  </StrictMode>
+);

@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useUser } from "@clerk/clerk-react";
+import { SignInButton, useUser } from "@clerk/clerk-react";
 import { useNavigate } from "react-router-dom";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "@/service/firebaseConfig";
 import UserTripCardItem from "./components/UserTripCardItem";
-import { FiSearch } from "react-icons/fi";
+import { FiAlertTriangle, FiSearch } from "react-icons/fi";
+import { Button } from "@/components/ui/button";
 
 function MyTrips() {
-  const { user } = useUser();
+  const { user, isLoaded, isSignedIn } = useUser();
   const navigate = useNavigate();
   const [userTrips, setUserTrips] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -56,6 +57,39 @@ function MyTrips() {
       console.error("Error fetching trips:", error);
     }
   };
+
+  if (!isLoaded) {
+    return <div>Loading...</div>;
+  }
+
+  if (!isSignedIn) {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen bg-gray-50 px-6">
+        <div className="text-red-500 mb-4">
+          <FiAlertTriangle className="w-16 h-16" />
+        </div>
+        <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+          Access Denied
+        </h2>
+        <p className="text-gray-600 mb-6 text-center max-w-md">
+          You do not have permission to view this page. If you believe this is a
+          mistake, please contact the administrator or sign in.
+        </p>
+        <div className="flex gap-4">
+          <a href="/">
+            <Button className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-2 rounded-full shadow-md">
+              Go to Home
+            </Button>
+          </a>
+          <SignInButton mode="modal">
+            <Button className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-2 rounded-full shadow-md">
+              Sign In
+            </Button>
+          </SignInButton>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="px-5 sm:px-10 md:px-20 lg:px-32 xl:px-56 mt-10 max-w-7xl mx-auto">
