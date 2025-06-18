@@ -84,6 +84,10 @@ npm run dev
 
 ![App Screenshot](https://i.postimg.cc/VsK7fDK9/Manage-Users.png)
 
+## Generate Your Personalized Trip Now
+
+https://atlas-azure.vercel.app/
+
 ## Author
 
 - [@MaorAtar](https://github.com/MaorAtar)
